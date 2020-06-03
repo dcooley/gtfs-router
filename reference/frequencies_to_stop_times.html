@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>process_gtfs_local — process_gtfs_local • gtfsrouter</title>
+<title>frequencies_to_stop_times — frequencies_to_stop_times • gtfsrouter</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="process_gtfs_local — process_gtfs_local" />
-<meta property="og:description" content="Process a local GTFS data set with environmental variables described in
-go_home into a condensed version for use in go_home and
-go_to_work functions." />
+<meta property="og:title" content="frequencies_to_stop_times — frequencies_to_stop_times" />
+<meta property="og:description" content="Convert gtfs frequencies to stop_times" />
 
 
 
@@ -110,31 +108,30 @@ go_to_work functions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>process_gtfs_local</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ATFutures/gtfs-router/blob/master/R/go_home_work.R'><code>R/go_home_work.R</code></a></small>
-    <div class="hidden name"><code>process_gtfs_local.Rd</code></div>
+    <h1>frequencies_to_stop_times</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ATFutures/gtfs-router/blob/master/R/frequencies_to_stop_times.R'><code>R/frequencies_to_stop_times.R</code></a></small>
+    <div class="hidden name"><code>frequencies_to_stop_times.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Process a local GTFS data set with environmental variables described in
-<a href='go_home.html'>go_home</a> into a condensed version for use in <a href='go_home.html'>go_home</a> and
-<code>go_to_work</code> functions.</p>
+    <p>Convert gtfs frequencies to stop_times</p>
     </div>
 
-    <pre class="usage"><span class='fu'>process_gtfs_local</span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
+    <pre class="usage"><span class='fu'>frequencies_to_stop_times</span>(<span class='no'>gtfs</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>expand</th>
-      <td><p>The data set is reduced to the bounding box defined by the
-home and work stations, expanded by this multiple. If the function appears to
-behave strangely, try re-running this function with a higher value of this
-parameter.</p></td>
+      <th>gtfs</th>
+      <td><p>A set of GTFS data returned from <a href='extract_gtfs.html'>extract_gtfs</a>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The input gtfs data with data from <code>frequencies</code> replaced by
+arrival_time and departure_time in <code>stop_times</code></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

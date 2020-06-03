@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.004</span>
       </span>
     </div>
 
@@ -248,7 +248,7 @@
 <span class="no">to</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>))</pre></body></html></div>
 <pre><code>##    user  system elapsed 
-##   0.069   0.001   0.070</code></pre>
+##   0.061   0.001   0.061</code></pre>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span> (<span class="no">gtfs</span>)</pre></body></html></div>
 <pre><code>## [1] "calendar"   "routes"     "trips"      "stop_times" "stops"     
 ## [6] "transfers"</code></pre>
@@ -258,7 +258,7 @@
 ## [6] "transfers"  "timetable"  "stop_ids"   "trip_ids"</code></pre>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>))</pre></body></html></div>
 <pre><code>##    user  system elapsed 
-##   0.054   0.000   0.054</code></pre>
+##    0.05    0.00    0.05</code></pre>
 <p>Note that the <code>day</code> parameter is used to extract the timetable, after which it is no longer required in the actual call to <code><a href="../reference/gtfs_route.html">gtfs_route()</a></code>.</p>
 </div>
 <div id="routing-by-mode-of-transport" class="section level2">
@@ -623,7 +623,7 @@
 ## 10     12:43:00       12:43:42
 ## 11     12:45:12       12:45:42
 ## 12     12:46:54       12:47:24</code></pre>
-<p>The complentary function, <code><a href="../reference/go_to_work.html">go_to_work()</a></code> routes in the reverse direction. These functions are intended to allow real-time queries of public transport schedules from within the comfort of an <strong>R</strong> session, and will generally be much quicker – and hopefully easier – than the arguably burdensome necessity of switching attention from productive <strong>R</strong> programming to the usual app or website otherwise needed to answer the simple question of when I ought to leave today?</p>
+<p>The complementary function, <code><a href="../reference/go_to_work.html">go_to_work()</a></code> routes in the reverse direction. These functions are intended to allow real-time queries of public transport schedules from within the comfort of an <strong>R</strong> session, and will generally be much quicker – and hopefully easier – than the arguably burdensome necessity of switching attention from productive <strong>R</strong> programming to the usual app or website otherwise needed to answer the simple question of when I ought to leave today?</p>
 <p>Successfully calling that function requires setting three environmental variables:</p>
 <div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span> (<span class="st">"gtfs_home"</span> <span class="kw">=</span> <span class="st">"&lt;my home station&gt;"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span> (<span class="st">"gtfs_work"</span> <span class="kw">=</span> <span class="st">"&lt;my work station&gt;"</span>)
@@ -631,7 +631,7 @@
 <p>along with execution of the single command:</p>
 <div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/process_gtfs_local.html">process_gtfs_local</a></span> ()</pre></body></html></div>
 <p>This command attempts to reduce the size of the locally-stored GTFS data to the minimum required for local routing, and saves the result as an internal <code>.Rds</code> object in the same location as the <code>gtfs_data</code> environmental variable. Having done that, <code><a href="../reference/go_home.html">go_home()</a></code> will search for the next available service from the nominated work station to the nominated home station, while <code><a href="../reference/go_to_work.html">go_to_work()</a></code> will search for connections in the other direction.</p>
-<p>An even easier way to use these functions is to automatically load those environmental variables at the start of each <strong>R</strong> session, which can be acheived simply by creating a file named <code>.Renviron</code> in the user’s root directory (or opening if it already exists), and pasting or appending the definitions to that file - in this case, without the <strong>R</strong>-specific <code><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv()</a></code> calls:</p>
+<p>An even easier way to use these functions is to automatically load those environmental variables at the start of each <strong>R</strong> session, which can be achieved simply by creating a file named <code>.Renviron</code> in the user’s root directory (or opening if it already exists), and pasting or appending the definitions to that file - in this case, without the <strong>R</strong>-specific <code><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv()</a></code> calls:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="ex">gtfs_home</span> = <span class="st">"&lt;my home station&gt;"</span></a>
 <a class="sourceLine" id="cb23-2" data-line-number="2"><span class="ex">gtfs_work</span> = <span class="st">"&lt;my work station&gt;"</span></a>
 <a class="sourceLine" id="cb23-3" data-line-number="3"><span class="ex">gtfs_data</span> = <span class="st">"/full/path/to/gtfs.zip"</span></a></code></pre></div>

@@ -73,7 +73,7 @@ of all stations reachable to the specified end_time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.007</span>
       </span>
     </div>
 
@@ -125,6 +125,7 @@ of all stations reachable to the specified <code>end_time</code>.</p>
   <span class='no'>start_time</span>,
   <span class='no'>end_time</span>,
   <span class='kw'>day</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>from_is_id</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>route_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>hull_alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
   <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
@@ -160,6 +161,12 @@ unambiguous string (so "tu" and "th" for Tuesday and Thursday), or a number
 between 1 = Sunday and 7 = Saturday. If not given, the current day will be
 used. (Not used if <code>gtfs</code> has already been prepared with
 <a href='gtfs_timetable.html'>gtfs_timetable</a>.)</p></td>
+    </tr>
+    <tr>
+      <th>from_is_id</th>
+      <td><p>Set to <code>TRUE</code> to enable <code>from</code> parameter to specify entry
+in <code>stop_id</code> rather than <code>stop_name</code> column of the <code>stops</code> table (same as
+<code>from_to_are_ids</code> parameter of <a href='gtfs_route.html'>gtfs_route</a>).</p></td>
     </tr>
     <tr>
       <th>route_pattern</th>

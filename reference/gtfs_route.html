@@ -73,7 +73,7 @@ a specified time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.007</span>
       </span>
     </div>
 
@@ -129,6 +129,7 @@ a specified time.</p>
   <span class='kw'>earliest_arrival</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>include_ids</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>max_transfers</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>from_to_are_ids</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -187,6 +188,12 @@ GTFS-specific identifiers for routes, trips, and stops.</p></td>
       <th>max_transfers</th>
       <td><p>If not <code>NA</code>, specify a maximum number of transfers
 (including but not exceeding this number) for the route.</p></td>
+    </tr>
+    <tr>
+      <th>from_to_are_ids</th>
+      <td><p>Set to <code>TRUE</code> to enable <code>from</code> and <code>to</code> parameter to
+specify entries in <code>stop_id</code> rather than <code>stop_name</code> column of the <code>stops</code>
+table.</p></td>
     </tr>
     <tr>
       <th>quiet</th>

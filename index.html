@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.007</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
 <p>To load the package and check the version:</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gtfsrouter</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"gtfsrouter"</span>)</pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">## [1] '0.0.1'</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">## [1] '0.0.1.3'</a></code></pre></div>
 </div>
 <div id="main-functions" class="section level2">
 <h2 class="hasAnchor">
@@ -92,7 +92,7 @@
 <span class="no">tempfiles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> (<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span> (), <span class="kw">full.names</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">filename</span> <span class="kw">&lt;-</span> <span class="no">tempfiles</span> [<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span> (<span class="st">"vbb.zip"</span>, <span class="no">tempfiles</span>)]
 <span class="no">filename</span></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">## [1] "/tmp/Rtmpz6vX0h/vbb.zip"</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">## [1] "/tmp/Rtmphw1fa9/vbb.zip"</a></code></pre></div>
 <p>For normal package use, <code>filename</code> will specify the name of the local GTFS data stored as a single <code>.zip</code> file.</p>
 <div id="gtfs_route" class="section level3">
 <h3 class="hasAnchor">
@@ -240,6 +240,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://github.com/atfutures/gtfs-router/actions?query=workflow%3AR-CMD-check"><img src="https://github.com/atfutures/gtfs-router/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://travis-ci.org/ATFutures/gtfs-router"><img src="https://travis-ci.org/ATFutures/gtfs-router.svg" alt="Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/ATFutures/gtfs-router"><img src="https://ci.appveyor.com/api/projects/status/github/ATFutures/gtfs-router?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/gh/ATFutures/gtfs-router"><img src="https://codecov.io/gh/ATFutures/gtfs-router/branch/master/graph/badge.svg" alt="codecov"></a></li>

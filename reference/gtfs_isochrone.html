@@ -73,7 +73,7 @@ of all stations reachable to the specified end_time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.008</span>
       </span>
     </div>
 
@@ -141,7 +141,9 @@ efficient queries, pre-processed with <a href='gtfs_timetable.html'>gtfs_timetab
     </tr>
     <tr>
       <th>from</th>
-      <td><p>Name of start station</p></td>
+      <td><p>Name, ID, or approximate (lon, lat) coordinates of start station
+(as <code>stop_name</code> or <code>stop_id</code> entry in the <code>stops</code> table, or a vector of two
+numeric values).</p></td>
     </tr>
     <tr>
       <th>start_time</th>

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.009</span>
       </span>
     </div>
 
@@ -70,7 +70,7 @@
       <h1 data-toc-skip>gtfsrouter</h1>
                         <h4 class="author">Mark Padgham</h4>
             
-            <h4 class="date">2020-06-17</h4>
+            <h4 class="date">2020-06-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ATFutures/gtfs-router/blob/master/vignettes/gtfsrouter.Rmd"><code>vignettes/gtfsrouter.Rmd</code></a></small>
       <div class="hidden name"><code>gtfsrouter.Rmd</code></div>
@@ -105,7 +105,7 @@
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Innsbrucker Platz"</span>
 <span class="no">to</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
 <span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>)</pre></body></html></div>
-<pre><code>## Day not specified; extracting timetable for Wednesday</code></pre>
+<pre><code>## Day not specified; extracting timetable for Friday</code></pre>
 <table class="table">
 <thead><tr class="header">
 <th align="left">route_name</th>
@@ -248,7 +248,7 @@
 <span class="no">to</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>))</pre></body></html></div>
 <pre><code>##    user  system elapsed 
-##   0.054   0.001   0.054</code></pre>
+##   0.059   0.000   0.059</code></pre>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span> (<span class="no">gtfs</span>)</pre></body></html></div>
 <pre><code>## [1] "calendar"   "routes"     "trips"      "stop_times" "stops"     
 ## [6] "transfers"</code></pre>
@@ -258,7 +258,7 @@
 ## [6] "transfers"  "timetable"  "stop_ids"   "trip_ids"</code></pre>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>))</pre></body></html></div>
 <pre><code>##    user  system elapsed 
-##   0.042   0.000   0.042</code></pre>
+##   0.047   0.000   0.047</code></pre>
 <p>Note that the <code>day</code> parameter is used to extract the timetable, after which it is no longer required in the actual call to <code><a href="../reference/gtfs_route.html">gtfs_route()</a></code>.</p>
 </div>
 <div id="routing-by-mode-of-transport" class="section level2">
@@ -696,24 +696,27 @@
 <p>Note that the isochrone will be calculated out to five minutes after the first service to depart from Alexander Platz <em>after</em> 12:00. If, for example, this first service actually departs at 12:02, then the isochrones will define the range of all services leaving that station and travelling until 12:07. This function returns an object of class <code>gtfs_isochrone</code>, which has the following structure:</p>
 <div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span> (<span class="no">ic</span>)</pre></body></html></div>
 <pre><code>## List of 7
-##  $ start_point:Classes 'sf' and 'data.frame':    1 obs. of  2 variables:
+##  $ start_point:Classes 'sf' and 'data.frame':    1 obs. of  3 variables:
 ##   ..$ stop_name: chr "S+U Alexanderplatz (Berlin) [U8]"
+##   ..$ stop_id  : chr "070201083601"
 ##   ..$ geometry :sfc_POINT of length 1; first list element:  'XY' num [1:2] 13.4 52.5
 ##   ..- attr(*, "sf_column")= chr "geometry"
-##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA
-##   .. ..- attr(*, "names")= chr "stop_name"
-##  $ mid_points :Classes 'sf' and 'data.frame':    11 obs. of  2 variables:
+##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
+##   .. ..- attr(*, "names")= chr [1:2] "stop_name" "stop_id"
+##  $ mid_points :Classes 'sf' and 'data.frame':    11 obs. of  3 variables:
 ##   ..$ stop_name: chr [1:11] "S+U Jannowitzbrucke (Berlin)" "S+U Jannowitzbrucke (Berlin)" "S Ostbahnhof (Berlin)" "S Hackescher Markt (Berlin)" ...
+##   ..$ stop_id  : chr [1:11] "070201083701" "060100004703" "060120005008" "060100002734" ...
 ##   ..$ geometry :sfc_POINT of length 11; first list element:  'XY' num [1:2] 13.4 52.5
 ##   ..- attr(*, "sf_column")= chr "geometry"
-##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA
-##   .. ..- attr(*, "names")= chr "stop_name"
-##  $ end_points :Classes 'sf' and 'data.frame':    7 obs. of  2 variables:
+##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
+##   .. ..- attr(*, "names")= chr [1:2] "stop_name" "stop_id"
+##  $ end_points :Classes 'sf' and 'data.frame':    7 obs. of  3 variables:
 ##   ..$ stop_name: chr [1:7] "U Heinrich-Heine-Str. (Berlin)" "S+U Warschauer Str. (Berlin)" "S+U Friedrichstr. Bhf (Berlin)" "U Rosenthaler Platz (Berlin)" ...
+##   ..$ stop_id  : chr [1:7] "070201083801" "060120004623" "060100001756" "070201083402" ...
 ##   ..$ geometry :sfc_POINT of length 7; first list element:  'XY' num [1:2] 13.4 52.5
 ##   ..- attr(*, "sf_column")= chr "geometry"
-##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA
-##   .. ..- attr(*, "names")= chr "stop_name"
+##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
+##   .. ..- attr(*, "names")= chr [1:2] "stop_name" "stop_id"
 ##  $ routes     :sfc_LINESTRING of length 7; first list element:  'XY' num [1:2, 1:2] 13.4 13.4 52.5 52.5
 ##  $ hull       :Classes 'sf' and 'data.frame':    1 obs. of  3 variables:
 ##   ..$ area      : Units: [m^2] num 5719557

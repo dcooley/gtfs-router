@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.010</span>
       </span>
     </div>
 
@@ -70,7 +70,7 @@
       <h1 data-toc-skip>gtfsrouter</h1>
                         <h4 class="author">Mark Padgham</h4>
             
-            <h4 class="date">2020-06-19</h4>
+            <h4 class="date">2020-06-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ATFutures/gtfs-router/blob/master/vignettes/gtfsrouter.Rmd"><code>vignettes/gtfsrouter.Rmd</code></a></small>
       <div class="hidden name"><code>gtfsrouter.Rmd</code></div>
@@ -96,16 +96,24 @@
 <span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span> (<span class="no">f</span>)</pre></body></html></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">f</span>)</pre></body></html></div>
+<pre><code>## ▶ Unzipping GTFS archive
+✔ Unzipped GTFS archive  
+## ▶ Extracting GTFS feed
+✔ Extracted GTFS feed 
+## ▶ Converting stop times to seconds
+✔ Converted stop times to seconds 
+## ▶ Converting transfer times to seconds
+✔ Converted transfer times to seconds</code></pre>
 <p>That simply re-creates the original package data, <code>berlin_gtfs</code> (although the extracted data differ through having a couple of additional attributes defining it as a <code>gtfs</code> object).</p>
 </div>
 <div id="routing" class="section level1">
 <h1 class="hasAnchor">
 <a href="#routing" class="anchor"></a>2. Routing</h1>
 <p>The primary routing function is <code><a href="../reference/gtfs_route.html">gtfs_route()</a></code>, the example of which uses the <code>gtfs</code> data for the VBB created as described above. In simplest form, routing requires a start and end point, defaulting to the current time as desired start time, and routing for the current day of the week.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Innsbrucker Platz"</span>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Innsbrucker Platz"</span>
 <span class="no">to</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
 <span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>)</pre></body></html></div>
-<pre><code>## Day not specified; extracting timetable for Friday</code></pre>
+<pre><code>## Day not specified; extracting timetable for Tuesday</code></pre>
 <table class="table">
 <thead><tr class="header">
 <th align="left">route_name</th>
@@ -237,36 +245,54 @@
 </tbody>
 </table>
 <p>Both the start time and day of the week can be explicitly specified:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">route</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">route</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>)</pre></body></html></div>
 <div id="gtfs-timetables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#gtfs-timetables" class="anchor"></a>2.1 GTFS Timetables</h2>
 <p>The <code>gtfsrouter</code> package uses the <a href="https://arxiv.org/abs/1703.05997">Connection Scan Algorithm</a>, which requires converting the “stop_times” table to a column-wise timetable. The “stop_times” table has row-wise entries for each distinct “trip_id”, with consecutive rows for a given value of “trip_id” holding sequential values for stops and associated times (and potentially additional variables). In contrast, the timetables processed by this package have separate columns for departure and arrival stations and times. All routing queries pre-process the original GTFS data with the <code><a href="../reference/gtfs_timetable.html">gtfs_timetable()</a></code> function, which appends this timetable data, along with two single-column tables of stop and trip ID values. (The timetable itself contains strictly integer values for stops and trips, which are indices into these latter tables.)</p>
 <p>The only important point of that from a user’s perspective is that routing queries will be faster if this pre-processing step is explicitly implemented with <code><a href="../reference/gtfs_timetable.html">gtfs_timetable()</a></code> prior to calling <code><a href="../reference/gtfs_route.html">gtfs_route()</a></code>. This is easy to demonstrate using the sample data:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">f</span>)
-<span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Innsbrucker Platz"</span>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">f</span>)</pre></body></html></div>
+<pre><code>## ▶ Unzipping GTFS archive
+✔ Unzipped GTFS archive  
+## ▶ Extracting GTFS feed
+✔ Extracted GTFS feed 
+## ▶ Converting stop times to seconds
+✔ Converted stop times to seconds 
+## ▶ Converting transfer times to seconds
+✔ Converted transfer times to seconds</code></pre>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Innsbrucker Platz"</span>
 <span class="no">to</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>))</pre></body></html></div>
 <pre><code>##    user  system elapsed 
-##   0.059   0.000   0.059</code></pre>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span> (<span class="no">gtfs</span>)</pre></body></html></div>
+##   0.055   0.000   0.056</code></pre>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span> (<span class="no">gtfs</span>)</pre></body></html></div>
 <pre><code>## [1] "calendar"   "routes"     "trips"      "stop_times" "stops"     
 ## [6] "transfers"</code></pre>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gtfs_timetable.html">gtfs_timetable</a></span> (<span class="no">gtfs</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>) <span class="co"># explicit pre-processing to extract timetable for Sunday</span>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gtfs_timetable.html">gtfs_timetable</a></span> (<span class="no">gtfs</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>) <span class="co"># explicit pre-processing to extract timetable for Sunday</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span> (<span class="no">gtfs</span>)</pre></body></html></div>
 <pre><code>## [1] "calendar"   "routes"     "trips"      "stop_times" "stops"     
 ## [6] "transfers"  "timetable"  "stop_ids"   "trip_ids"</code></pre>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>))</pre></body></html></div>
 <pre><code>##    user  system elapsed 
-##   0.047   0.000   0.047</code></pre>
+##   0.043   0.000   0.043</code></pre>
 <p>Note that the <code>day</code> parameter is used to extract the timetable, after which it is no longer required in the actual call to <code><a href="../reference/gtfs_route.html">gtfs_route()</a></code>.</p>
 </div>
 <div id="routing-by-mode-of-transport" class="section level2">
 <h2 class="hasAnchor">
 <a href="#routing-by-mode-of-transport" class="anchor"></a>2.2. Routing by mode of transport</h2>
 <p>It is also possible to filter by desired mode of transport. This is done by matching the pattern to those given in the <code>route_short_name</code> column of the <code>gtfs$route</code> table:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span> (<span class="no">gtfs</span>$<span class="no">route</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span> (<span class="no">gtfs</span>$<span class="no">route</span>)</pre></body></html></div>
 <table class="table">
+<colgroup>
+<col width="9%">
+<col width="9%">
+<col width="16%">
+<col width="15%">
+<col width="10%">
+<col width="11%">
+<col width="16%">
+<col width="10%">
+</colgroup>
 <thead><tr class="header">
 <th align="left">route_id</th>
 <th align="right">agency_id</th>
@@ -341,7 +367,7 @@
 </tbody>
 </table>
 <p>These short names will differ for each GTFS, with the two primary train systems in Berlin being the underground trains denoted “U” (although not always travelling underground), and street-level trains denoted “S”. The default route from Innsbrucker Platz to Alexanderplatz above was via two “U” services. We can also specify that we’d prefer to travel by “S” services, noting that the <code>route_pattern = "S"</code> specifies a <code>route_short_name</code> that <em>starts with</em> (<code><a href="https://rdrr.io/r/base/Arithmetic.html">"^"</a></code>) “S”:</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>, <span class="kw">route_pattern</span> <span class="kw">=</span> <span class="st">"^S"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>, <span class="kw">route_pattern</span> <span class="kw">=</span> <span class="st">"^S"</span>)</pre></body></html></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">route_name</th>
@@ -442,7 +468,7 @@
 <h2 class="hasAnchor">
 <a href="#routing-for-earliest-arrivals-or-earliest-departures" class="anchor"></a>2.3. Routing for earliest arrivals or earliest departures</h2>
 <p>The above route with the “S” services leaves one minute later, and arrives two minutes later. Importantly, <code><a href="../reference/gtfs_route.html">gtfs_route()</a></code> searches by default for the service which arrives at the nominated destination station at the earliest time. This may not always be the first available service departing from the nominated start station. Routing with the earliest <em>departing</em> service, instead of the earliest <em>arriving</em> service, can be specified with the binary <code>earliest_arrival</code> parameter:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
 <span class="no">to</span> <span class="kw">&lt;-</span> <span class="st">"Pankow"</span>
 <span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>, <span class="kw">earliest_arrival</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <table class="table">
@@ -527,7 +553,7 @@
 </tbody>
 </table>
 <p>And the earliest-departing route arrives at Pankow at 12:20:42, departing Alexanderplatz at 12:00:42. In contrast, the earliest-arriving service is:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>, <span class="kw">earliest_arrival</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>, <span class="kw">earliest_arrival</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">route_name</th>
@@ -596,7 +622,7 @@
 <a href="#convenience-functions-go_home-and-go_to_work" class="anchor"></a>3. Convenience Functions: <code>go_home()</code> and <code>go_to_work()</code>
 </h1>
 <p>The <code>gtfsrouter</code> package is intended both to enable statistical analyses of GTFS data sets, as well as for personal, pragmatic purposes. In the latter regard, the package provides two “convenience” functions to allow single-call queries for next available services to “home” and “work” stations. These functions require some initial set-up through specifying environmental variables, but once done can be executed as single calls from any <strong>R</strong> session to return the next available service.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="../reference/go_home.html">go_home</a></span> ()</pre></body></html></div>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/go_home.html">go_home</a></span> ()</pre></body></html></div>
 <pre><code>##    route_name              trip_name                            stop_name
 ## 1          S7 S Potsdam Hauptbahnhof      S+U Alexanderplatz Bhf (Berlin)
 ## 2          S7 S Potsdam Hauptbahnhof          S Hackescher Markt (Berlin)
@@ -625,19 +651,19 @@
 ## 12     12:46:54       12:47:24</code></pre>
 <p>The complementary function, <code><a href="../reference/go_to_work.html">go_to_work()</a></code> routes in the reverse direction. These functions are intended to allow real-time queries of public transport schedules from within the comfort of an <strong>R</strong> session, and will generally be much quicker – and hopefully easier – than the arguably burdensome necessity of switching attention from productive <strong>R</strong> programming to the usual app or website otherwise needed to answer the simple question of when I ought to leave today?</p>
 <p>Successfully calling that function requires setting three environmental variables:</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span> (<span class="st">"gtfs_home"</span> <span class="kw">=</span> <span class="st">"&lt;my home station&gt;"</span>)
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span> (<span class="st">"gtfs_home"</span> <span class="kw">=</span> <span class="st">"&lt;my home station&gt;"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span> (<span class="st">"gtfs_work"</span> <span class="kw">=</span> <span class="st">"&lt;my work station&gt;"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span> (<span class="st">"gtfs_data"</span> <span class="kw">=</span> <span class="st">"/full/path/to/gtfs.zip"</span>)</pre></body></html></div>
 <p>along with execution of the single command:</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/process_gtfs_local.html">process_gtfs_local</a></span> ()</pre></body></html></div>
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="../reference/process_gtfs_local.html">process_gtfs_local</a></span> ()</pre></body></html></div>
 <p>This command attempts to reduce the size of the locally-stored GTFS data to the minimum required for local routing, and saves the result as an internal <code>.Rds</code> object in the same location as the <code>gtfs_data</code> environmental variable. Having done that, <code><a href="../reference/go_home.html">go_home()</a></code> will search for the next available service from the nominated work station to the nominated home station, while <code><a href="../reference/go_to_work.html">go_to_work()</a></code> will search for connections in the other direction.</p>
 <p>An even easier way to use these functions is to automatically load those environmental variables at the start of each <strong>R</strong> session, which can be achieved simply by creating a file named <code>.Renviron</code> in the user’s root directory (or opening if it already exists), and pasting or appending the definitions to that file - in this case, without the <strong>R</strong>-specific <code><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv()</a></code> calls:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="ex">gtfs_home</span> = <span class="st">"&lt;my home station&gt;"</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="ex">gtfs_work</span> = <span class="st">"&lt;my work station&gt;"</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="ex">gtfs_data</span> = <span class="st">"/full/path/to/gtfs.zip"</span></a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="ex">gtfs_home</span> = <span class="st">"&lt;my home station&gt;"</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="ex">gtfs_work</span> = <span class="st">"&lt;my work station&gt;"</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="ex">gtfs_data</span> = <span class="st">"/full/path/to/gtfs.zip"</span></a></code></pre></div>
 <p>Of course, this function will only route using locally-stored data, so it is up to the user to ensure their local copy of <code>gtfs.zip</code> is kept up to date.</p>
 <p>The functions include one additional feature. Having found the next service with <code><a href="../reference/go_home.html">go_home()</a></code>, I may suspect that I can keep working until the following service. The simple parameter <code>wait</code> enables searching for that following service:</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="fu"><a href="../reference/go_home.html">go_home</a></span> (<span class="kw">wait</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="fu"><a href="../reference/go_home.html">go_home</a></span> (<span class="kw">wait</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
 <pre><code>##    route_name       trip_name                        stop_name arrival_time
 ## 1          U8 S+U Hermannstr. S+U Alexanderplatz (Berlin) [U8]     12:23:30
 ## 2          U8 S+U Hermannstr.     S+U Jannowitzbrucke (Berlin)     12:25:00
@@ -678,12 +704,12 @@
 <h1 class="hasAnchor">
 <a href="#isochrones" class="anchor"></a>4. Isochrones</h1>
 <p>Isochrones are points or lines of equal time. In the present context, the function <a href="https://atfutures.github.io/gtfs-router/reference/gtfs_isochrone.html"><code><a href="../reference/gtfs_isochrone.html">gtfs_isochrone()</a></code></a> calculates an isochrone from a nominated start station. The function returns details of start, intermediate, and end points for the isochrone, where the end points represent the further points reachable on each route departing from the nominated station, with all intermediate points being stored in as <code>mid_points</code>. All stops are representing in <a href="https://cran.r-project.org/package=sf">Simple Features (sf)</a> format, and this function accordingly requires the <code>sf</code> package to be installed. As with routing, the function also requires initial extraction of GTFS data and, for faster queries, explicit conversion to <a href="https://atfutures.github.io/gtfs-router/reference/gtfs_timetable.html"><code><a href="../reference/gtfs_timetable.html">gtfs_timetable()</a></code></a> format.</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="../reference/berlin_gtfs_to_zip.html">berlin_gtfs_to_zip</a></span> ()
+<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="fu"><a href="../reference/berlin_gtfs_to_zip.html">berlin_gtfs_to_zip</a></span> ()
 <span class="no">f</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span> (<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span> (), <span class="st">"vbb.zip"</span>)
 <span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">f</span>)
 <span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gtfs_timetable.html">gtfs_timetable</a></span> (<span class="no">gtfs</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
 <p>Whereas routing requires start and end <em>stations</em> (along with a start time), isochrones require specifying start and end <em>times</em> (along with a start station). The following code returns the isochrone of all stations reachable in 5 minutes from “Alexanderplatz”, departing at 12:00.</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
+<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">from</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
 <span class="no">start_time</span> <span class="kw">&lt;-</span> <span class="st">"12:05"</span>
 <span class="no">end_time</span> <span class="kw">&lt;-</span> <span class="st">"12:10"</span>
 <span class="no">ic</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gtfs_isochrone.html">gtfs_isochrone</a></span> (<span class="no">gtfs</span>,
@@ -692,9 +718,12 @@
                       <span class="kw">end_time</span> <span class="kw">=</span> <span class="no">end_time</span>)</pre></body></html></div>
 <pre><code>## Loading required namespace: geodist</code></pre>
 <pre><code>## Loading required namespace: lwgeom</code></pre>
+<pre><code>## Registered S3 method overwritten by 'spatstat':
+##   method     from
+##   print.boxx cli</code></pre>
 <pre><code>## Linking to GEOS 3.7.1, GDAL 2.2.2, PROJ 4.9.2</code></pre>
 <p>Note that the isochrone will be calculated out to five minutes after the first service to depart from Alexander Platz <em>after</em> 12:00. If, for example, this first service actually departs at 12:02, then the isochrones will define the range of all services leaving that station and travelling until 12:07. This function returns an object of class <code>gtfs_isochrone</code>, which has the following structure:</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span> (<span class="no">ic</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span> (<span class="no">ic</span>)</pre></body></html></div>
 <pre><code>## List of 7
 ##  $ start_point:Classes 'sf' and 'data.frame':    1 obs. of  3 variables:
 ##   ..$ stop_name: chr "S+U Alexanderplatz (Berlin) [U8]"
@@ -735,7 +764,7 @@
 ##  - attr(*, "class")= chr [1:2] "gtfs_isochrone" "list"</code></pre>
 <p>As mentioned above, the <code>start_point</code> item defines the single start point for the isochrone; the <code>mid_points</code> include stops which all routes pass through on their way to the terminal points reachable within the specified time range; and <code>end_points</code> defines those terminal, isochrone points. The return object also includes information on the non-convex (“alpha”) hull defining the boundary of the terminal points (see the <a href="https://cran.r-project.org/package=alphahull"><code>alphahull</code> package</a> for details), and geometric lines representing the actual routes taken. Finally, the <code>hull</code> time also quantifies its area and width-to-length ratio. The latter is informative, as higher values generally indicate a greater reachable area, while lower values are typically indicative of a radial system primarily serving transport in two directions (in and out of a city).</p>
 <p>The object returned from the <code><a href="../reference/gtfs_isochrone.html">gtfs_isochrone()</a></code> function also has its own plot method, which automatically opens a browser tab, and displays the start and end points (in green and red, respectively), all intermediate points, and the lines of the routes travelled. This uses the <code>mapview</code> package which must be installed for this to work. A static example is shown below:</p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span> (<span class="no">ic</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span> (<span class="no">ic</span>)</pre></body></html></div>
 <p><img src="isochrone.png" width="100%"></p>
 </div>
   </div>

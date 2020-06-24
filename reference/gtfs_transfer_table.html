@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>gtfsrouter — gtfsrouter • gtfsrouter</title>
+<title>gtfs_transfer_table — gtfs_transfer_table • gtfsrouter</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="gtfsrouter — gtfsrouter" />
-<meta property="og:description" content="Routing engine for GTFS (General Transit Feed Specification) data, including
-one-to-one and one-to-many routing routines." />
+<meta property="og:title" content="gtfs_transfer_table — gtfs_transfer_table" />
+<meta property="og:description" content="Construct a transfer table for a GTFS feed." />
 
 
 
@@ -109,34 +108,52 @@ one-to-one and one-to-many routing routines." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>gtfsrouter</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ATFutures/gtfs-router/blob/master/R/gtfsrouter-package.R'><code>R/gtfsrouter-package.R</code></a></small>
-    <div class="hidden name"><code>gtfsrouter.Rd</code></div>
+    <h1>gtfs_transfer_table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ATFutures/gtfs-router/blob/master/R/tranfers.R'><code>R/tranfers.R</code></a></small>
+    <div class="hidden name"><code>gtfs_transfer_table.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Routing engine for GTFS (General Transit Feed Specification) data, including
-one-to-one and one-to-many routing routines.</p>
+    <p>Construct a transfer table for a GTFS feed.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>gtfs_transfer_table</span>(<span class='no'>gtfs</span>, <span class='kw'>d_limit</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>network</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>network_times</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>gtfs</th>
+      <td><p>A GTFS feed obtained from the <a href='extract_gtfs.html'>extract_gtfs</a> function.</p></td>
+    </tr>
+    <tr>
+      <th>d_limit</th>
+      <td><p>Upper straight-line distance limit in metres for transfers.</p></td>
+    </tr>
+    <tr>
+      <th>network</th>
+      <td><p>Optional Open Street Map representation of the street network
+encompassed by the GTFS feed (see Examples).</p></td>
+    </tr>
+    <tr>
+      <th>network_times</th>
+      <td><p>If <code>TRUE</code>, transfer times are calculated by routing
+throughout the underlying street network. If this is not provided as the
+<code>net</code> parameter, it will be automatically downloaded.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="main-functions"><a class="anchor" href="#main-functions"></a>Main Functions</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>Modified version of the <code>gtfs</code> input with additional transfers table.</p>
 
-<ul>
-<li><p><code><a href='gtfs_route.html'>gtfs_route()</a></code>: Route between given start and end stations using a
-nominated GTFS data set.</p></li>
-<li><p><code><a href='go_home.html'>go_home()</a></code>: Automatic routing between work and home stations specified
-with local environmental variables</p></li>
-<li><p><code><a href='go_to_work.html'>go_to_work()</a></code>: Automatic routing between work and home stations
-specified with local environmental variables</p></li>
-<li><p><code><a href='gtfs_isochrone.html'>gtfs_isochrone()</a></code>: One-to-many routing from a nominated start station
-to all stations reachable within a specified travel duration.</p></li>
-</ul>
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Use the following lines to extract a street network for a given GTFS feed.</span>
+<span class='co'># The result can then be passed as the `network` parameter.</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span> (<span class='no'>dodgr</span>)
+<span class='no'>net</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dodgr/man/dodgr_streetnet_sc.html'>dodgr_streetnet_sc</a></span> (<span class='kw'>pts</span> <span class='kw'>=</span> <span class='no'>gtfs</span>$<span class='no'>stops</span> [, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span> (<span class='st'>"stop_lon"</span>, <span class='st'>"stop_lat"</span>)])
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

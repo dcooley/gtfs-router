@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.013</span>
       </span>
     </div>
 
@@ -117,7 +117,13 @@
     <p>Construct a transfer table for a GTFS feed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gtfs_transfer_table</span>(<span class='no'>gtfs</span>, <span class='kw'>d_limit</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>network</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>network_times</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>gtfs_transfer_table</span>(
+  <span class='no'>gtfs</span>,
+  <span class='kw'>d_limit</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>min_transfer_time</span> <span class='kw'>=</span> <span class='fl'>120</span>,
+  <span class='kw'>network</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>network_times</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,6 +135,12 @@
     <tr>
       <th>d_limit</th>
       <td><p>Upper straight-line distance limit in metres for transfers.</p></td>
+    </tr>
+    <tr>
+      <th>min_transfer_time</th>
+      <td><p>Minimum time in seconds for transfers; all values
+below this will be replaced with this value, particularly all those defining
+in-place transfers where stop longitudes and latitudes remain identical.</p></td>
     </tr>
     <tr>
       <th>network</th>

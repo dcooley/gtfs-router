@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.013</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
 <span class="no">tempfiles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> (<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span> (), <span class="kw">full.names</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">filename</span> <span class="kw">&lt;-</span> <span class="no">tempfiles</span> [<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span> (<span class="st">"vbb.zip"</span>, <span class="no">tempfiles</span>)]
 <span class="no">filename</span></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">## [1] "/tmp/RtmpHkO0Tj/vbb.zip"</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">## [1] "/tmp/RtmpDvCd60/vbb.zip"</a></code></pre></div>
 <p>For normal package use, <code>filename</code> will specify the name of the local GTFS data stored as a single <code>.zip</code> file.</p>
 <div id="gtfs_route" class="section level3">
 <h3 class="hasAnchor">
@@ -202,10 +202,12 @@
 <p>The isochrone hull also quantifies its total area and width-to-length ratio.</p>
 </div>
 </div>
-<div id="gtfs-structure" class="section level2">
+<div id="additional-functionality" class="section level2">
 <h2 class="hasAnchor">
-<a href="#gtfs-structure" class="anchor"></a>GTFS Structure</h2>
-<p>For background information, see <a href="http://gtfs.org"><code>gtfs.org</code></a>, and particularly their <a href="https://docs.google.com/document/d/16inL5BVcM1aU-_DcFJay_tC6Ni0wPa0nvQEstueG5k4/edit">GTFS Examples</a>. The VBB is strictly schedule-only, so has no <code>"frequencies.txt"</code> file (this file defines “service periods”, and overrides any schedule information during the specified times).</p>
+<a href="#additional-functionality" class="anchor"></a>Additional Functionality</h2>
+<p>There are many ways to construct GTFS feeds. For background information, see <a href="http://gtfs.org"><code>gtfs.org</code></a>, and particularly their <a href="https://docs.google.com/document/d/16inL5BVcM1aU-_DcFJay_tC6Ni0wPa0nvQEstueG5k4/edit">GTFS Examples</a>.</p>
+<p>Feeds may include a “frequencies.txt” table which defines “service periods”, and overrides any schedule information during the specified times. The <code>gtfsrouter</code> package includes a function, <a href="https://atfutures.github.io/gtfs-router/reference/frequencies_to_stop_times.html"><code><a href="reference/frequencies_to_stop_times.html">frequencies_to_stop_times()</a></code></a>, to convert “frequencies.txt” tables to equivalent “stop_times.txt” entries, to enable the feed to be used for routine.</p>
+<p>Feeds may also omit a “transfers.txt” table which otherwise defines transfer abilities and times between different services. Feeds without this table can generally not be used for routing, and they exclude the possibility of transferring between multiple services. The <code>gtfsrouter</code> package also includes a function, <a href="https://atfutures.github.io/gtfs-router/reference/gtfs_transfer_table.html"><code><a href="reference/gtfs_transfer_table.html">gtfs_transfer_table()</a></code></a>, which can calculate a transfer table for a given feed, with transfer times calculated either using straight-line distances (the default), or using more realistic times routed through the underlying street network.</p>
 </div>
 </div>
 

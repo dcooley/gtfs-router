@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.021</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.022</span>
       </span>
     </div>
 
@@ -117,7 +117,7 @@
     <p>Extract data from a GTFS <code>zip</code> archive.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_gtfs</span>(<span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>extract_gtfs</span>(<span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>stn_suffixes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,6 +129,13 @@
     <tr>
       <th>quiet</th>
       <td><p>If <code>FALSE</code>, display progress information on screen</p></td>
+    </tr>
+    <tr>
+      <th>stn_suffixes</th>
+      <td><p>Any values provided will be removed from terminal
+characters of station IDs. Useful for feeds like NYC for which some stations
+are appended with values of "N" and "S" to indicate directions. Specifying
+<code>stn_suffixes = c ("N", "S")</code> will automatically remove these suffixes.</p></td>
     </tr>
     </table>
 

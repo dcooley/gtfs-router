@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.028</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.029</span>
       </span>
     </div>
 
@@ -264,7 +264,7 @@
 <span class="no">to</span> <span class="kw">&lt;-</span> <span class="st">"Alexanderplatz"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>, <span class="kw">day</span> <span class="kw">=</span> <span class="st">"Sunday"</span>))</pre></body></html></div>
 <pre><code>##    user  system elapsed 
-##    0.06    0.00    0.06</code></pre>
+##   0.057   0.000   0.057</code></pre>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span> (<span class="no">gtfs</span>)</pre></body></html></div>
 <pre><code>## [1] "calendar"   "routes"     "trips"      "stop_times" "stops"     
 ## [6] "transfers"</code></pre>
@@ -274,7 +274,7 @@
 ## [6] "transfers"  "timetable"  "stop_ids"   "trip_ids"</code></pre>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> (<span class="fu"><a href="../reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="no">from</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="no">to</span>, <span class="kw">start_time</span> <span class="kw">=</span> <span class="st">"12:00:00"</span>))</pre></body></html></div>
 <pre><code>##    user  system elapsed 
-##   0.048   0.000   0.048</code></pre>
+##   0.045   0.000   0.045</code></pre>
 <p>Note that the <code>day</code> parameter is used to extract the timetable, after which it is no longer required in the actual call to <code><a href="../reference/gtfs_route.html">gtfs_route()</a></code>.</p>
 </div>
 <div id="routing-by-mode-of-transport" class="section level2">
@@ -732,20 +732,22 @@
 ##   ..- attr(*, "sf_column")= chr "geometry"
 ##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 ##   .. ..- attr(*, "names")= chr [1:2] "stop_name" "stop_id"
-##  $ mid_points :Classes 'sf' and 'data.frame':    11 obs. of  3 variables:
-##   ..$ stop_name: chr [1:11] "S+U Jannowitzbrucke (Berlin)" "S+U Jannowitzbrucke (Berlin)" "S Ostbahnhof (Berlin)" "S Hackescher Markt (Berlin)" ...
-##   ..$ stop_id  : chr [1:11] "070201083701" "060100004703" "060120005008" "060100002734" ...
-##   ..$ geometry :sfc_POINT of length 11; first list element:  'XY' num [1:2] 13.4 52.5
+##  $ mid_points :Classes 'sf' and 'data.frame':    11 obs. of  4 variables:
+##   ..$ stop_name       : chr [1:11] "S+U Jannowitzbrucke (Berlin)" "S+U Jannowitzbrucke (Berlin)" "S Ostbahnhof (Berlin)" "S Hackescher Markt (Berlin)" ...
+##   ..$ stop_id         : chr [1:11] "070201083701" "060100004703" "060120005008" "060100002734" ...
+##   ..$ earliest_arrival: num [1:11] 43800 43614 43746 43764 43740 ...
+##   ..$ geometry        :sfc_POINT of length 11; first list element:  'XY' num [1:2] 13.4 52.5
 ##   ..- attr(*, "sf_column")= chr "geometry"
-##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
-##   .. ..- attr(*, "names")= chr [1:2] "stop_name" "stop_id"
-##  $ end_points :Classes 'sf' and 'data.frame':    7 obs. of  3 variables:
-##   ..$ stop_name: chr [1:7] "U Heinrich-Heine-Str. (Berlin)" "S+U Warschauer Str. (Berlin)" "S+U Friedrichstr. Bhf (Berlin)" "U Rosenthaler Platz (Berlin)" ...
-##   ..$ stop_id  : chr [1:7] "070201083801" "060120004623" "060100001756" "070201083402" ...
-##   ..$ geometry :sfc_POINT of length 7; first list element:  'XY' num [1:2] 13.4 52.5
+##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA NA
+##   .. ..- attr(*, "names")= chr [1:3] "stop_name" "stop_id" "earliest_arrival"
+##  $ end_points :Classes 'sf' and 'data.frame':    7 obs. of  4 variables:
+##   ..$ stop_name       : chr [1:7] "U Heinrich-Heine-Str. (Berlin)" "S+U Warschauer Str. (Berlin)" "S+U Friedrichstr. Bhf (Berlin)" "U Rosenthaler Platz (Berlin)" ...
+##   ..$ stop_id         : chr [1:7] "070201083801" "060120004623" "060100001756" "070201083402" ...
+##   ..$ earliest_arrival: num [1:7] 43890 43896 43884 43830 43860 ...
+##   ..$ geometry        :sfc_POINT of length 7; first list element:  'XY' num [1:2] 13.4 52.5
 ##   ..- attr(*, "sf_column")= chr "geometry"
-##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
-##   .. ..- attr(*, "names")= chr [1:2] "stop_name" "stop_id"
+##   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA NA
+##   .. ..- attr(*, "names")= chr [1:3] "stop_name" "stop_id" "earliest_arrival"
 ##  $ routes     :sfc_LINESTRING of length 7; first list element:  'XY' num [1:2, 1:2] 13.4 13.4 52.5 52.5
 ##  $ hull       :Classes 'sf' and 'data.frame':    1 obs. of  3 variables:
 ##   ..$ area      : Units: [m^2] num 5719557

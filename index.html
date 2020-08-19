@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.042</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.043</span>
       </span>
     </div>
 
@@ -81,26 +81,34 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>To install:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"atfutures/gtfs-router"</span>)</pre></div>
+<p>You can install latest stable version of <code>gtfsrouter</code> from CRAN with:</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"gtfsrouter"</span>) <span class="co"># current CRAN version</span></pre></div>
+<p>Alternatively, current development versions can be installed using any of the following options:</p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># install.packages("remotes")</span>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_git.html">install_git</a></span>(<span class="st">"https://git.sr.ht/~mpadge/gtfsrouter"</span>)
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_bitbucket.html">install_bitbucket</a></span>(<span class="st">"atfutures/gtfsrouter"</span>)
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html">install_gitlab</a></span>(<span class="st">"atfutures1/gtfsrouter"</span>)
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ATFutures/gtfsrouter"</span>)</pre></div>
 <p>To load the package and check the version:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gtfsrouter</span>)
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gtfsrouter</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"gtfsrouter"</span>)</pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">## [1] '0.0.1.3'</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">## [1] '0.0.1.31'</a></code></pre></div>
 </div>
 <div id="main-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#main-functions" class="anchor"></a>Main functions</h2>
 <p>The main functions can be demonstrated with sample data included with the package from Berlin (the Verkehrverbund Berlin Brandenburg, or VBB). GTFS data are always stored as <code>.zip</code> files, and these sample data can be written to local storage with the function <code><a href="reference/berlin_gtfs_to_zip.html">berlin_gtfs_to_zip()</a></code>.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/berlin_gtfs_to_zip.html">berlin_gtfs_to_zip</a></span>()
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/berlin_gtfs_to_zip.html">berlin_gtfs_to_zip</a></span>()
 <span class="no">tempfiles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> (<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span> (), <span class="kw">full.names</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">filename</span> <span class="kw">&lt;-</span> <span class="no">tempfiles</span> [<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span> (<span class="st">"vbb.zip"</span>, <span class="no">tempfiles</span>)]
 <span class="no">filename</span></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">## [1] "/tmp/RtmpDvCd60/vbb.zip"</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">## [1] "/tmp/Rtmp1b9IHS/vbb.zip"</a></code></pre></div>
 <p>For normal package use, <code>filename</code> will specify the name of the local GTFS data stored as a single <code>.zip</code> file.</p>
 <div id="gtfs_route" class="section level3">
 <h3 class="hasAnchor">
 <a href="#gtfs_route" class="anchor"></a>gtfs_route</h3>
 <p>Given the name of a GTFS <code>.zip</code> file, <code>filename</code>, routing is as simple as the following code:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">filename</span>)
+<div class="sourceCode" id="cb8"><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">filename</span>)
 <span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gtfs_timetable.html">gtfs_timetable</a></span> (<span class="no">gtfs</span>) <span class="co"># A pre-processing step to speed up queries</span>
 <span class="fu"><a href="reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>,
             <span class="kw">from</span> <span class="kw">=</span> <span class="st">"Schonlein"</span>,
@@ -192,14 +200,14 @@
 <h3 class="hasAnchor">
 <a href="#gtfs_isochrone" class="anchor"></a>gtfs_isochrone</h3>
 <p>Isochrones from a nominated station - lines delineating the range reachable within a given time - can be extracted with the <code><a href="reference/gtfs_isochrone.html">gtfs_isochrone()</a></code> function, which returns a list of all stations reachable within the specified time period from the nominated station.</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">filename</span>)
+<div class="sourceCode" id="cb9"><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">filename</span>)
 <span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gtfs_timetable.html">gtfs_timetable</a></span> (<span class="no">gtfs</span>) <span class="co"># A pre-processing step to speed up queries</span>
 <span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gtfs_isochrone.html">gtfs_isochrone</a></span> (<span class="no">gtfs</span>,
                      <span class="kw">from</span> <span class="kw">=</span> <span class="st">"Schonlein"</span>,
                      <span class="kw">start_time</span> <span class="kw">=</span> <span class="fl">12</span> * <span class="fl">3600</span> + <span class="fl">120</span>,
                      <span class="kw">end_time</span> <span class="kw">=</span> <span class="fl">12</span> * <span class="fl">3600</span> + <span class="fl">720</span>) <span class="co"># 10 minutes later</span></pre></div>
 <p>The function returns an object of class <code>gtfs_isochrone</code> containing <a href="https://github.com/r-spatial/sf"><code>sf</code></a>-formatted sets of start and end points, along with all intermediate (“mid”) points, and routes. An additional item contains the non-convex (alpha) hull enclosing the routed points. This requires the packages <a href="https://github.com/hypertidy/geodist"><code>geodist</code></a>, <a href="https://cran.r-project.org/package=sf"><code>sf</code></a>, <a href="https://cran.r-project.org/package=alphahull"><code>alphahull</code></a>, and <a href="https://cran.r-project.org/package=mapview"><code>mapview</code></a> to be installed. Isochrone objects have their own plot method:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span> (<span class="no">x</span>)</pre></div>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span> (<span class="no">x</span>)</pre></div>
 <p><img src="./vignettes/isochrone.png"></p>
 <p>The isochrone hull also quantifies its total area and width-to-length ratio.</p>
 </div>
@@ -224,13 +232,13 @@
 <a href="#code" class="anchor"></a>Code</h2>
 <table class="table"><tr>
 <td align="center">
-<a href="https://github.com/mpadge"> <img src="https://avatars1.githubusercontent.com/u/6697851?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/commits?author=mpadge">mpadge</a>
+<p><a href="https://github.com/mpadge"> <img src="https://avatars1.githubusercontent.com/u/6697851?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/commits?author=mpadge">mpadge</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/AlexandraKapp"> <img src="https://avatars0.githubusercontent.com/u/18367515?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/commits?author=AlexandraKapp">AlexandraKapp</a>
+<p><a href="https://github.com/AlexandraKapp"> <img src="https://avatars0.githubusercontent.com/u/18367515?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/commits?author=AlexandraKapp">AlexandraKapp</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/stmarcin"> <img src="https://avatars2.githubusercontent.com/u/11378350?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/commits?author=stmarcin">stmarcin</a>
+<p><a href="https://github.com/stmarcin"> <img src="https://avatars2.githubusercontent.com/u/11378350?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/commits?author=stmarcin">stmarcin</a></p>
 </td>
 </tr></table>
 </div>
@@ -240,42 +248,42 @@
 <table class="table">
 <tr>
 <td align="center">
-<a href="https://github.com/polettif"> <img src="https://avatars3.githubusercontent.com/u/17431069?u=757eac2821736acbb02e7c90b456411d256d5780&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Apolettif">polettif</a>
+<p><a href="https://github.com/polettif"> <img src="https://avatars3.githubusercontent.com/u/17431069?u=757eac2821736acbb02e7c90b456411d256d5780&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Apolettif">polettif</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/tbuckl"> <img src="https://avatars1.githubusercontent.com/u/98956?u=9580c2ee3c03cbbe44ac8180b0f6a6725b0415f0&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Atbuckl">tbuckl</a>
+<p><a href="https://github.com/tbuckl"> <img src="https://avatars1.githubusercontent.com/u/98956?u=9580c2ee3c03cbbe44ac8180b0f6a6725b0415f0&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Atbuckl">tbuckl</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/sridharraman"> <img src="https://avatars0.githubusercontent.com/u/570692?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Asridharraman">sridharraman</a>
+<p><a href="https://github.com/sridharraman"> <img src="https://avatars0.githubusercontent.com/u/570692?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Asridharraman">sridharraman</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/tuesd4y"> <img src="https://avatars2.githubusercontent.com/u/13107179?u=cfcc7852d1bed6e2b17fa3f985cebf743c43b299&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Atuesd4y">tuesd4y</a>
+<p><a href="https://github.com/tuesd4y"> <img src="https://avatars2.githubusercontent.com/u/13107179?u=cfcc7852d1bed6e2b17fa3f985cebf743c43b299&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Atuesd4y">tuesd4y</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/luukvdmeer"> <img src="https://avatars2.githubusercontent.com/u/26540305?u=c576e87314499815cbf698b7781ee58fd1d773e2&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Aluukvdmeer">luukvdmeer</a>
+<p><a href="https://github.com/luukvdmeer"> <img src="https://avatars2.githubusercontent.com/u/26540305?u=c576e87314499815cbf698b7781ee58fd1d773e2&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Aluukvdmeer">luukvdmeer</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/Robinlovelace"> <img src="https://avatars3.githubusercontent.com/u/1825120?u=461318c239e721dc40668e4b0ce6cc47731328ac&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3ARobinlovelace">Robinlovelace</a>
+<p><a href="https://github.com/Robinlovelace"> <img src="https://avatars3.githubusercontent.com/u/1825120?u=461318c239e721dc40668e4b0ce6cc47731328ac&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3ARobinlovelace">Robinlovelace</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/orlandoandradeb"> <img src="https://avatars0.githubusercontent.com/u/48104481?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Aorlandoandradeb">orlandoandradeb</a>
+<p><a href="https://github.com/orlandoandradeb"> <img src="https://avatars0.githubusercontent.com/u/48104481?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Aorlandoandradeb">orlandoandradeb</a></p>
 </td>
 </tr>
 <tr>
 <td align="center">
-<a href="https://github.com/Maxime2506"> <img src="https://avatars3.githubusercontent.com/u/54989587?u=6d2c848ee0c7d8a2841d47791c30eec1cab35470&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3AMaxime2506">Maxime2506</a>
+<p><a href="https://github.com/Maxime2506"> <img src="https://avatars3.githubusercontent.com/u/54989587?u=6d2c848ee0c7d8a2841d47791c30eec1cab35470&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3AMaxime2506">Maxime2506</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/chinhqho"> <img src="https://avatars0.githubusercontent.com/u/47441312?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Achinhqho">chinhqho</a>
+<p><a href="https://github.com/chinhqho"> <img src="https://avatars0.githubusercontent.com/u/47441312?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Achinhqho">chinhqho</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/federicotallis"> <img src="https://avatars3.githubusercontent.com/u/25511806?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Afedericotallis">federicotallis</a>
+<p><a href="https://github.com/federicotallis"> <img src="https://avatars3.githubusercontent.com/u/25511806?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Afedericotallis">federicotallis</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/rafapereirabr"> <img src="https://avatars1.githubusercontent.com/u/7448421?u=bd52fb822944dafabebd61d286bc80d183234d20&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Arafapereirabr">rafapereirabr</a>
+<p><a href="https://github.com/rafapereirabr"> <img src="https://avatars1.githubusercontent.com/u/7448421?u=bd52fb822944dafabebd61d286bc80d183234d20&amp;v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Arafapereirabr">rafapereirabr</a></p>
 </td>
 <td align="center">
-<a href="https://github.com/loanho23"> <img src="https://avatars1.githubusercontent.com/u/48426365?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Aloanho23">loanho23</a>
+<p><a href="https://github.com/loanho23"> <img src="https://avatars1.githubusercontent.com/u/48426365?v=4" width="100px;" alt=""></a><br><a href="https://github.com/ATFutures/gtfs-router/issues?q=is%3Aissue+author%3Aloanho23">loanho23</a></p>
 </td>
 </tr>
 </table>

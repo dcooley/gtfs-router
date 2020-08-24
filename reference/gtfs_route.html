@@ -73,7 +73,7 @@ a specified time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.043</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.044</span>
       </span>
     </div>
 
@@ -209,14 +209,14 @@ regarding timetable construction).</p></td>
     <p>For single (from, to) values, a <code>data.frame</code> describing the route,
 with each row representing one stop. For multiple (from, to) values, a list
 of <code>data.frames</code>, each of which describes one route between the i'th start
-and end stations (<code>from</code> and <code>to</code> values).</p>
+and end stations (<code>from</code> and <code>to</code> values). Origin and destination stations
+for which no route is possible return <code>NULL</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function will by default calculate the route that departs on the
-first available service after the specified <code>start_time</code>, although this may
-arrive later than subsequent services. The earliest arriving route can be
-obtained with the
-desired,</p>
+    <p>This function will by default calculate the route that arrives earliest
+at the specified destination, although this may depart later than the
+earliest departing service. Routes which depart at the earliest possible time
+can be calculated by setting <code>earliest_arrival = FALSE</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='berlin_gtfs_to_zip.html'>berlin_gtfs_to_zip</a></span> () <span class='co'># Write sample feed from Berlin, Germany to tempdir</span>
@@ -224,7 +224,7 @@ desired,</p>
 <span class='no'>gtfs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='extract_gtfs.html'>extract_gtfs</a></span> (<span class='no'>f</span>)</div><div class='output co'>#&gt; <span class='message'>▶ Unzipping GTFS archive</span></div><div class='output co'>#&gt; <span class='message'>✔ Unzipped GTFS archive  </span></div><div class='output co'>#&gt; <span class='message'>▶ Extracting GTFS feed</span></div><div class='output co'>#&gt; <span class='message'>✔ Extracted GTFS feed </span></div><div class='output co'>#&gt; <span class='message'>▶ Converting stop times to seconds</span></div><div class='output co'>#&gt; <span class='message'>✔ Converted stop times to seconds </span></div><div class='output co'>#&gt; <span class='message'>▶ Converting transfer times to seconds</span></div><div class='output co'>#&gt; <span class='message'>✔ Converted transfer times to seconds </span></div><div class='input'><span class='no'>from</span> <span class='kw'>&lt;-</span> <span class='st'>"Innsbrucker Platz"</span> <span class='co'># U-bahn station, not "S"</span>
 <span class='no'>to</span> <span class='kw'>&lt;-</span> <span class='st'>"Alexanderplatz"</span>
 <span class='no'>start_time</span> <span class='kw'>&lt;-</span> <span class='fl'>12</span> * <span class='fl'>3600</span> + <span class='fl'>120</span> <span class='co'># 12:02</span>
-<span class='no'>route</span> <span class='kw'>&lt;-</span> <span class='fu'>gtfs_route</span> (<span class='no'>gtfs</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='no'>from</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>to</span>, <span class='kw'>start_time</span> <span class='kw'>=</span> <span class='no'>start_time</span>)</div><div class='output co'>#&gt; <span class='message'>Day not specified; extracting timetable for Wednesday</span></div><div class='input'>
+<span class='no'>route</span> <span class='kw'>&lt;-</span> <span class='fu'>gtfs_route</span> (<span class='no'>gtfs</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='no'>from</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>to</span>, <span class='kw'>start_time</span> <span class='kw'>=</span> <span class='no'>start_time</span>)</div><div class='output co'>#&gt; <span class='message'>Day not specified; extracting timetable for Monday</span></div><div class='input'>
 <span class='co'># Specify day of week</span>
 <span class='no'>route</span> <span class='kw'>&lt;-</span> <span class='fu'>gtfs_route</span> (<span class='no'>gtfs</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='no'>from</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>to</span>, <span class='kw'>start_time</span> <span class='kw'>=</span> <span class='no'>start_time</span>,
                      <span class='kw'>day</span> <span class='kw'>=</span> <span class='st'>"Sunday"</span>)

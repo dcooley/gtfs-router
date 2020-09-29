@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -80,40 +80,46 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>To install:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"atfutures/gtfs-router"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"atfutures/gtfs-router"</span><span class="op">)</span></pre></div>
 <p>You can install latest stable version of <code>gtfsrouter</code> from CRAN with:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"gtfsrouter"</span>) <span class="co"># current CRAN version</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"gtfsrouter"</span><span class="op">)</span> <span class="co"># current CRAN version</span></pre></div>
 <p>Alternatively, current development versions can be installed using any of the following options:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># install.packages("remotes")</span>
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_git.html">install_git</a></span>(<span class="st">"https://git.sr.ht/~mpadge/gtfsrouter"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_bitbucket.html">install_bitbucket</a></span>(<span class="st">"atfutures/gtfsrouter"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html">install_gitlab</a></span>(<span class="st">"atfutures1/gtfsrouter"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ATFutures/gtfsrouter"</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co"># install.packages("remotes")</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_git.html">install_git</a></span><span class="op">(</span><span class="st">"https://git.sr.ht/~mpadge/gtfsrouter"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_bitbucket.html">install_bitbucket</a></span><span class="op">(</span><span class="st">"atfutures/gtfsrouter"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html">install_gitlab</a></span><span class="op">(</span><span class="st">"atfutures1/gtfsrouter"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ATFutures/gtfsrouter"</span><span class="op">)</span></pre></div>
 <p>To load the package and check the version:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gtfsrouter</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"gtfsrouter"</span>)</pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">## [1] '0.0.1.31'</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ATFutures/gtfs-router">gtfsrouter</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"gtfsrouter"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## [1] '0.0.1.31'</span></span></code></pre></div>
 </div>
 <div id="main-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#main-functions" class="anchor"></a>Main functions</h2>
 <p>The main functions can be demonstrated with sample data included with the package from Berlin (the Verkehrverbund Berlin Brandenburg, or VBB). GTFS data are always stored as <code>.zip</code> files, and these sample data can be written to local storage with the function <code><a href="reference/berlin_gtfs_to_zip.html">berlin_gtfs_to_zip()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/berlin_gtfs_to_zip.html">berlin_gtfs_to_zip</a></span>()
-<span class="no">tempfiles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> (<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span> (), <span class="kw">full.names</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="no">filename</span> <span class="kw">&lt;-</span> <span class="no">tempfiles</span> [<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span> (<span class="st">"vbb.zip"</span>, <span class="no">tempfiles</span>)]
-<span class="no">filename</span></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">## [1] "/tmp/RtmpctrGeB/vbb.zip"</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="reference/berlin_gtfs_to_zip.html">berlin_gtfs_to_zip</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">tempfiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span> <span class="op">(</span><span class="op">)</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">filename</span> <span class="op">&lt;-</span> <span class="va">tempfiles</span> <span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span> <span class="op">(</span><span class="st">"vbb.zip"</span>, <span class="va">tempfiles</span><span class="op">)</span><span class="op">]</span>
+<span class="va">filename</span></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## [1] "/tmp/RtmpctrGeB/vbb.zip"</span></span></code></pre></div>
 <p>For normal package use, <code>filename</code> will specify the name of the local GTFS data stored as a single <code>.zip</code> file.</p>
 <div id="gtfs_route" class="section level3">
 <h3 class="hasAnchor">
 <a href="#gtfs_route" class="anchor"></a>gtfs_route</h3>
 <p>Given the name of a GTFS <code>.zip</code> file, <code>filename</code>, routing is as simple as the following code:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">filename</span>)
-<span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gtfs_timetable.html">gtfs_timetable</a></span> (<span class="no">gtfs</span>) <span class="co"># A pre-processing step to speed up queries</span>
-<span class="fu"><a href="reference/gtfs_route.html">gtfs_route</a></span> (<span class="no">gtfs</span>,
-            <span class="kw">from</span> <span class="kw">=</span> <span class="st">"Schonlein"</span>,
-            <span class="kw">to</span> <span class="kw">=</span> <span class="st">"Berlin Hauptbahnhof"</span>,
-            <span class="kw">start_time</span> <span class="kw">=</span> <span class="fl">12</span> * <span class="fl">3600</span> + <span class="fl">120</span>) <span class="co"># 12:02 in seconds</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_gtfs.html">extract_gtfs</a></span> <span class="op">(</span><span class="va">filename</span><span class="op">)</span>
+<span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gtfs_timetable.html">gtfs_timetable</a></span> <span class="op">(</span><span class="va">gtfs</span><span class="op">)</span> <span class="co"># A pre-processing step to speed up queries</span>
+<span class="fu"><a href="reference/gtfs_route.html">gtfs_route</a></span> <span class="op">(</span><span class="va">gtfs</span>,
+            from <span class="op">=</span> <span class="st">"Schonlein"</span>,
+            to <span class="op">=</span> <span class="st">"Berlin Hauptbahnhof"</span>,
+            start_time <span class="op">=</span> <span class="fl">12</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">+</span> <span class="fl">120</span><span class="op">)</span> <span class="co"># 12:02 in seconds</span></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">route_name</th>
@@ -200,14 +206,16 @@
 <h3 class="hasAnchor">
 <a href="#gtfs_isochrone" class="anchor"></a>gtfs_isochrone</h3>
 <p>Isochrones from a nominated station - lines delineating the range reachable within a given time - can be extracted with the <code><a href="reference/gtfs_isochrone.html">gtfs_isochrone()</a></code> function, which returns a list of all stations reachable within the specified time period from the nominated station.</p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/extract_gtfs.html">extract_gtfs</a></span> (<span class="no">filename</span>)
-<span class="no">gtfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gtfs_timetable.html">gtfs_timetable</a></span> (<span class="no">gtfs</span>) <span class="co"># A pre-processing step to speed up queries</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gtfs_isochrone.html">gtfs_isochrone</a></span> (<span class="no">gtfs</span>,
-                     <span class="kw">from</span> <span class="kw">=</span> <span class="st">"Schonlein"</span>,
-                     <span class="kw">start_time</span> <span class="kw">=</span> <span class="fl">12</span> * <span class="fl">3600</span> + <span class="fl">120</span>,
-                     <span class="kw">end_time</span> <span class="kw">=</span> <span class="fl">12</span> * <span class="fl">3600</span> + <span class="fl">720</span>) <span class="co"># 10 minutes later</span></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_gtfs.html">extract_gtfs</a></span> <span class="op">(</span><span class="va">filename</span><span class="op">)</span>
+<span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gtfs_timetable.html">gtfs_timetable</a></span> <span class="op">(</span><span class="va">gtfs</span><span class="op">)</span> <span class="co"># A pre-processing step to speed up queries</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gtfs_isochrone.html">gtfs_isochrone</a></span> <span class="op">(</span><span class="va">gtfs</span>,
+                     from <span class="op">=</span> <span class="st">"Schonlein"</span>,
+                     start_time <span class="op">=</span> <span class="fl">12</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">+</span> <span class="fl">120</span>,
+                     end_time <span class="op">=</span> <span class="fl">12</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">+</span> <span class="fl">720</span><span class="op">)</span> <span class="co"># 10 minutes later</span></pre></div>
 <p>The function returns an object of class <code>gtfs_isochrone</code> containing <a href="https://github.com/r-spatial/sf"><code>sf</code></a>-formatted sets of start and end points, along with all intermediate (“mid”) points, and routes. An additional item contains the non-convex (alpha) hull enclosing the routed points. This requires the packages <a href="https://github.com/hypertidy/geodist"><code>geodist</code></a>, <a href="https://cran.r-project.org/package=sf"><code>sf</code></a>, <a href="https://cran.r-project.org/package=alphahull"><code>alphahull</code></a>, and <a href="https://cran.r-project.org/package=mapview"><code>mapview</code></a> to be installed. Isochrone objects have their own plot method:</p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span> (<span class="no">x</span>)</pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span> <span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
 <p><img src="./vignettes/isochrone.png"></p>
 <p>The isochrone hull also quantifies its total area and width-to-length ratio.</p>
 </div>
@@ -216,8 +224,8 @@
 <h2 class="hasAnchor">
 <a href="#additional-functionality" class="anchor"></a>Additional Functionality</h2>
 <p>There are many ways to construct GTFS feeds. For background information, see <a href="http://gtfs.org"><code>gtfs.org</code></a>, and particularly their <a href="https://docs.google.com/document/d/16inL5BVcM1aU-_DcFJay_tC6Ni0wPa0nvQEstueG5k4/edit">GTFS Examples</a>.</p>
-<p>Feeds may include a “frequencies.txt” table which defines “service periods”, and overrides any schedule information during the specified times. The <code>gtfsrouter</code> package includes a function, <a href="https://atfutures.github.io/gtfs-router/reference/frequencies_to_stop_times.html"><code><a href="reference/frequencies_to_stop_times.html">frequencies_to_stop_times()</a></code></a>, to convert “frequencies.txt” tables to equivalent “stop_times.txt” entries, to enable the feed to be used for routine.</p>
-<p>Feeds may also omit a “transfers.txt” table which otherwise defines transfer abilities and times between different services. Feeds without this table can generally not be used for routing, and they exclude the possibility of transferring between multiple services. The <code>gtfsrouter</code> package also includes a function, <a href="https://atfutures.github.io/gtfs-router/reference/gtfs_transfer_table.html"><code><a href="reference/gtfs_transfer_table.html">gtfs_transfer_table()</a></code></a>, which can calculate a transfer table for a given feed, with transfer times calculated either using straight-line distances (the default), or using more realistic times routed through the underlying street network.</p>
+<p>Feeds may include a “frequencies.txt” table which defines “service periods”, and overrides any schedule information during the specified times. The <code>gtfsrouter</code> package includes a function, <a href="https://atfutures.github.io/gtfs-router/reference/frequencies_to_stop_times.html"><code>frequencies_to_stop_times()</code></a>, to convert “frequencies.txt” tables to equivalent “stop_times.txt” entries, to enable the feed to be used for routine.</p>
+<p>Feeds may also omit a “transfers.txt” table which otherwise defines transfer abilities and times between different services. Feeds without this table can generally not be used for routing, and they exclude the possibility of transferring between multiple services. The <code>gtfsrouter</code> package also includes a function, <a href="https://atfutures.github.io/gtfs-router/reference/gtfs_transfer_table.html"><code>gtfs_transfer_table()</code></a>, which can calculate a transfer table for a given feed, with transfer times calculated either using straight-line distances (the default), or using more realistic times routed through the underlying street network.</p>
 </div>
 <div id="contributors" class="section level2">
 <h2 class="hasAnchor">
@@ -340,7 +348,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

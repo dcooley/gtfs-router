@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsrouter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -117,7 +117,7 @@
     <p>Extract data from a GTFS <code>zip</code> archive.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_gtfs</span>(<span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>stn_suffixes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>extract_gtfs</span><span class='op'>(</span>filename <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span>, stn_suffixes <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,10 +145,11 @@ are appended with values of "N" and "S" to indicate directions. Specifying
 present in the nominated GTFS data set.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='berlin_gtfs_to_zip.html'>berlin_gtfs_to_zip</a></span> () <span class='co'># Write sample feed from Berlin, Germany to tempdir</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span> (<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span> (), <span class='st'>"vbb.zip"</span>) <span class='co'># name of feed</span>
-<span class='no'>gtfs</span> <span class='kw'>&lt;-</span> <span class='fu'>extract_gtfs</span> (<span class='no'>f</span>)</div><div class='output co'>#&gt; <span class='message'>▶ Unzipping GTFS archive</span></div><div class='output co'>#&gt; <span class='message'>✔ Unzipped GTFS archive  </span></div><div class='output co'>#&gt; <span class='message'>▶ Extracting GTFS feed</span></div><div class='output co'>#&gt; <span class='message'>✔ Extracted GTFS feed </span></div><div class='output co'>#&gt; <span class='message'>▶ Converting stop times to seconds</span></div><div class='output co'>#&gt; <span class='message'>✔ Converted stop times to seconds </span></div><div class='output co'>#&gt; <span class='message'>▶ Converting transfer times to seconds</span></div><div class='output co'>#&gt; <span class='message'>✔ Converted transfer times to seconds </span></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='berlin_gtfs_to_zip.html'>berlin_gtfs_to_zip</a></span> <span class='op'>(</span><span class='op'>)</span> <span class='co'># Write sample feed from Berlin, Germany to tempdir</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span> <span class='op'>(</span><span class='op'>)</span>, <span class='st'>"vbb.zip"</span><span class='op'>)</span> <span class='co'># name of feed</span>
+<span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='fu'>extract_gtfs</span> <span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>▶<span style='color: #00BB00;'> Unzipping GTFS archive</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔ Unzipped GTFS archive  </span><span></span></div><div class='output co'>#&gt; <span class='message'>▶</span><span style='color: #00BB00;'> Extracting GTFS feed</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔ Extracted GTFS feed </span><span></span></div><div class='output co'>#&gt; <span class='message'>▶</span><span style='color: #00BB00;'> Converting stop times to seconds</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔ Converted stop times to seconds </span><span></span></div><div class='output co'>#&gt; <span class='message'>▶</span><span style='color: #00BB00;'> Converting transfer times to seconds</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔ Converted transfer times to seconds </span><span></span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -164,7 +165,7 @@ present in the nominated GTFS data set.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
